@@ -13,7 +13,7 @@ function Home() {
     try {
       const result = await getPublicWords();
       const { words } = result.result?.data() as WordsResponse;
-      setPublicWords(words);
+      setPublicWords(words ?? []);
     } catch {
       console.log("Error casting database return");
     }
@@ -26,7 +26,7 @@ function Home() {
     await addPublicWord(wordInput, publicWords);
     fetchPublicWords();
   };
-  
+
   return (
     <Container>
       <Column>

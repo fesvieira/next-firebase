@@ -12,10 +12,10 @@ export default async function addPublicWord(
   let error = null;
 
   try {
-    let newList = publicWords.concat([newWord]);
+    publicWords.push(newWord);
     result = await setDoc(
       doc(db, C.Database.Public.collection, C.Database.Public.document),
-      { words: newList },
+      { words: publicWords },
       {
         merge: true,
       }
@@ -25,8 +25,6 @@ export default async function addPublicWord(
 
     error = e;
   }
-
-  console.log(result);
 
   return { result, error };
 }
