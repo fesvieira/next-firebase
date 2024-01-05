@@ -1,9 +1,9 @@
-import { useRouter } from "next/router";
-import signUp from "@/firebase/auth/signup";
 import React from "react";
+import signIn from "@/firebase/auth/signin";
+import { useRouter } from "next/navigation";
 import { Container, Column } from "@/styles/global";
 
-function SignUpPage() {
+function SignInPage() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const router = useRouter();
@@ -11,7 +11,7 @@ function SignUpPage() {
   const handleForm = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const { result, error } = await signUp(email, password);
+    const { result, error } = await signIn(email, password);
 
     if (error) {
       return console.log(error);
@@ -24,7 +24,7 @@ function SignUpPage() {
   return (
     <Container>
       <Column>
-        <h1 className="mt-60 mb-30">Sign up</h1>
+        <h1 className="mt-60 mb-30">Sign in</h1>
         <form onSubmit={handleForm} className="form">
           <label htmlFor="email">
             <p>Email</p>
@@ -48,11 +48,11 @@ function SignUpPage() {
               placeholder="password"
             />
           </label>
-          <button type="submit">Sign up</button>
+          <button type="submit">Sign in</button>
         </form>
       </Column>
     </Container>
   );
 }
 
-export default SignUpPage;
+export default SignInPage;
