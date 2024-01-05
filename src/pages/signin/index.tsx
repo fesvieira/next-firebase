@@ -24,8 +24,8 @@ function SignInPage() {
   return (
     <Container>
       <Column>
-        <h1 className="mt-60 mb-30">Sign in</h1>
-        <form onSubmit={handleForm} className="form">
+        <h1>Sign in</h1>
+        <form onSubmit={handleForm}>
           <label htmlFor="email">
             <p>Email</p>
             <input

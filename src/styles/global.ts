@@ -19,3 +19,22 @@ export const Column = styled.div`
 
   gap: 1rem;
 `;
+
+export const WordsColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.25rem;
+
+  & > p {
+    padding: 0;
+    margin: 0;
+  }
+`;
+
+export const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  gap: 1rem;
+`;

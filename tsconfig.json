@@ -17,6 +17,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/context/AuthContext.js", "src/firebase/firestore/addData.ts"],
   "exclude": ["node_modules"]
 }

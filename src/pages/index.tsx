@@ -1,29 +1,32 @@
-import { Inter } from "next/font/google";
-import Router, { useRouter } from "next/router";
-import signUp from "@/firebase/auth/signup";
-import React from "react";
-import { Column, Container } from "@/styles/global";
-
-const inter = Inter({ subsets: ["latin"] });
+import Router from "next/router";
+import React, { useEffect, useState } from "react";
+import { Column, Container, Row, WordsColumn } from "@/styles/global";
+import getPublicWords from "@/firebase/firestore/getPublicWords";
+import { WordsResponse } from "@/models/WordsResponse";
+import addPublicWord from "@/firebase/firestore/addPublicWord";
 
 function Home() {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const router = useRouter();
+  const [publicWords, setPublicWords] = useState<string[]>([]);
+  const [wordInput, setWordInput] = useState<string>("");
 
-  const handleForm = async (event: React.FormEvent) => {
-    event.preventDefault();
-
-    const { result, error } = await signUp(email, password);
-
-    if (error) {
-      return console.log(error);
+  const fetchPublicWords = async () => {
+    try {
+      const result = await getPublicWords();
+      const { words } = result.result?.data() as WordsResponse;
+      setPublicWords(words);
+    } catch {
+      console.log("Error casting database return");
     }
-
-    // else successful
-    console.log(result);
-    return router.push("/admin");
   };
+  useEffect(() => {
+    fetchPublicWords();
+  }, []);
+
+  const handleForm = async () => {
+    await addPublicWord(wordInput, publicWords);
+    fetchPublicWords();
+  };
+  
   return (
     <Container>
       <Column>
@@ -42,6 +45,29 @@ function Home() {
         >
           Sign In
         </button>
+
+        <Row>
+          <input
+            value={wordInput}
+            onChange={(e) => {
+              setWordInput(e.target.value);
+            }}
+            required
+            placeholder="New Word"
+          />
+
+          <button onClick={handleForm}>Add Data</button>
+        </Row>
+
+        <h2>Public Words</h2>
+
+        <WordsColumn>
+          {publicWords &&
+            publicWords?.length > 0 &&
+            publicWords?.map((word) => {
+              return <p key={word}>{word}</p>;
+            })}
+        </WordsColumn>
       </Column>
     </Container>
   );
