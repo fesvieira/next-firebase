@@ -4,8 +4,12 @@ import { Constants as C } from "@/constants/Constants";
 
 const db = getFirestore(firebaseApp);
 
-export default async function getDocument(collection: string, id: string) {
-  let docRef = doc(db, collection, id);
+export default async function getPrivateWords(uid: string) {
+  let docRef = doc(
+    db,
+    C.Database.Private,
+    uid
+  );
 
   let result = null;
   let error = null;
@@ -13,6 +17,8 @@ export default async function getDocument(collection: string, id: string) {
   try {
     result = await getDoc(docRef);
   } catch (e) {
+    console.log(e);
+
     error = e;
   }
 
