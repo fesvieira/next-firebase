@@ -17,7 +17,14 @@ export const Container = styled.div`
     flex-direction: column;
 
     gap: 1rem;
-    
+  }
+  & > form.horizontal {
+    flex-direction: row;
+  }
+
+  & > p {
+    margin: 0;
+    padding: 0;
   }
 `;
 
@@ -40,4 +47,9 @@ export const Row = styled.div`
   flex-direction: row;
 
   gap: 1rem;
+`;
+
+export const ErrorText = styled.p`
+  font-weight: 600;
+  color: darkred;
 `;

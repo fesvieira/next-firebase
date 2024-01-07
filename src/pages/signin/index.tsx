@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import signIn from "@/firebase/auth/signIn";
 import { useRouter } from "next/navigation";
-import { Container } from "@/styles/global";
+import { Container, ErrorText } from "@/styles/global";
 import { signInWithGoogle } from "@/firebase/auth/signInWithGoogle";
 
 function SignInPage() {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const router = useRouter();
 
   const handleForm = async (event: React.FormEvent) => {
@@ -15,6 +16,7 @@ function SignInPage() {
     const { result, error } = await signIn(email, password);
 
     if (error) {
+      setError(error.toString());
       return console.log(error);
     }
 
@@ -30,7 +32,7 @@ function SignInPage() {
       router.push("/admin");
     }
   };
-  
+
   return (
     <Container>
       <h1>Sign in</h1>
@@ -56,6 +58,8 @@ function SignInPage() {
       </form>
 
       <button onClick={signInGoogle}>Sign In With Google</button>
+
+      <ErrorText>{error}</ErrorText>
     </Container>
   );
 }
