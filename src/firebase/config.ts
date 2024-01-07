@@ -30,4 +30,6 @@ let firebaseApp =
 
 export const auth = getAuth(firebaseApp);
 
+export const googleAuthProvider = new GoogleAuthProvider();
+
 export default firebaseApp;

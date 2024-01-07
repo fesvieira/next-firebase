@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
-import signUp from "@/firebase/auth/signup";
+import signUp from "@/firebase/auth/signUp";
 import React from "react";
 import { Container } from "@/styles/global";
+import { signInWithGoogle } from "@/firebase/auth/signInWithGoogle";
 
 function SignUpPage() {
   const [email, setEmail] = React.useState("");
@@ -21,6 +22,15 @@ function SignUpPage() {
     console.log(result);
     return router.push("/admin");
   };
+
+  const signInGoogle = async () => {
+    const didLogIn = await signInWithGoogle();
+
+    if (didLogIn) {
+      router.push("/admin");
+    }
+  };
+  
   return (
     <Container>
       <h1>Sign up</h1>
@@ -45,6 +55,8 @@ function SignUpPage() {
 
         <button type="submit">Sign up</button>
       </form>
+
+      <button onClick={signInGoogle}>Sign In With Google</button>
     </Container>
   );
 }
