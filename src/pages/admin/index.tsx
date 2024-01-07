@@ -1,16 +1,39 @@
-import React from "react";
-import { useAuthContext } from "@/context/AuthContext";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { auth } from "@/firebase/config";
+import { signOut } from "firebase/auth";
+import Router from "next/router";
 
 function Page() {
-  const { user } = useAuthContext();
+  const user = auth.currentUser;
   const router = useRouter();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (user == null) router.push("/");
+    console.log(user);
   }, [user]);
 
-  return <h1>Only logged in users can view this page</h1>;
+  return (
+    <>
+      <h1>Private Session</h1>
+      <p>{user?.displayName}</p>
+      <p>{user?.email}</p>
+      <button
+        onClick={() => {
+          signOut(auth)
+            .then(() => {
+              Router.push("/");
+              console.log("Signed out successfully");
+            })
+            .catch((error) => {
+              // An error happened.
+            });
+        }}
+      >
+        Logout
+      </button>
+    </>
+  );
 }
 
 export default Page;

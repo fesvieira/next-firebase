@@ -4,6 +4,8 @@ import { Column, Container, Row, WordsColumn } from "@/styles/global";
 import getPublicWords from "@/firebase/firestore/getPublicWords";
 import { WordsResponse } from "@/models/WordsResponse";
 import addPublicWord from "@/firebase/firestore/addPublicWord";
+import { auth } from "@/firebase/config";
+import { onAuthStateChanged } from "firebase/auth";
 
 function Home() {
   const [publicWords, setPublicWords] = useState<string[]>([]);
@@ -18,8 +20,15 @@ function Home() {
       console.log("Error casting database return");
     }
   };
+
   useEffect(() => {
-    fetchPublicWords();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        Router.push("/admin");
+      } else {
+        fetchPublicWords();
+      }
+    });
   }, []);
 
   const handleForm = async () => {

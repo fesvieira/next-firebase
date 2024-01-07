@@ -1,5 +1,18 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp, getApps } from "firebase/app";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut,
+  GoogleAuthProvider,
+  setPersistence,
+  browserLocalPersistence,
+  onAuthStateChanged,
+  User,
+  signInWithRedirect,
+  getRedirectResult,
+} from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -14,5 +27,7 @@ const firebaseConfig = {
 // Initialize Firebase
 let firebaseApp =
   getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+
+export const auth = getAuth(firebaseApp);
 
 export default firebaseApp;
