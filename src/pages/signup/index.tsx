@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import signUp from "@/firebase/auth/signup";
 import React from "react";
-import { Container, Column } from "@/styles/global";
+import { Container } from "@/styles/global";
 
 function SignUpPage() {
   const [email, setEmail] = React.useState("");
@@ -23,34 +23,28 @@ function SignUpPage() {
   };
   return (
     <Container>
-      <Column>
-        <h1 className="mt-60 mb-30">Sign up</h1>
-        <form onSubmit={handleForm} className="form">
-          <label htmlFor="email">
-            <p>Email</p>
-            <input
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              type="email"
-              name="email"
-              id="email"
-              placeholder="example@mail.com"
-            />
-          </label>
-          <label htmlFor="password">
-            <p>Password</p>
-            <input
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              type="password"
-              name="password"
-              id="password"
-              placeholder="password"
-            />
-          </label>
-          <button type="submit">Sign up</button>
-        </form>
-      </Column>
+      <h1>Sign up</h1>
+      <form onSubmit={handleForm} className="form">
+        <input
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          type="email"
+          name="email"
+          id="email"
+          placeholder="example@mail.com"
+        />
+
+        <input
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          type="password"
+          name="password"
+          id="password"
+          placeholder="password"
+        />
+
+        <button type="submit">Sign up</button>
+      </form>
     </Container>
   );
 }

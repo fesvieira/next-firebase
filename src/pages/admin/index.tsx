@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { auth } from "@/firebase/config";
 import { signOut } from "firebase/auth";
 import Router from "next/router";
+import { Container } from "@/styles/global";
 
 function Page() {
   const user = auth.currentUser;
@@ -14,7 +15,7 @@ function Page() {
   }, [user]);
 
   return (
-    <>
+    <Container>
       <h1>Private Session</h1>
       <p>{user?.displayName}</p>
       <p>{user?.email}</p>
@@ -26,13 +27,13 @@ function Page() {
               console.log("Signed out successfully");
             })
             .catch((error) => {
-              // An error happened.
+              console.log(error);
             });
         }}
       >
         Logout
       </button>
-    </>
+    </Container>
   );
 }
 

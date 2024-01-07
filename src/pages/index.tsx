@@ -1,6 +1,6 @@
 import Router from "next/router";
 import React, { useEffect, useState } from "react";
-import { Column, Container, Row, WordsColumn } from "@/styles/global";
+import { Container, Row, WordsColumn } from "@/styles/global";
 import getPublicWords from "@/firebase/firestore/getPublicWords";
 import { WordsResponse } from "@/models/WordsResponse";
 import addPublicWord from "@/firebase/firestore/addPublicWord";
@@ -38,46 +38,45 @@ function Home() {
 
   return (
     <Container>
-      <Column>
-        <button
-          onClick={() => {
-            Router.push("/signup");
+      <h1>World Words</h1>
+      <button
+        onClick={() => {
+          Router.push("/signup");
+        }}
+      >
+        Sign Up
+      </button>
+
+      <button
+        onClick={() => {
+          Router.push("/signin");
+        }}
+      >
+        Sign In
+      </button>
+
+      <Row>
+        <input
+          value={wordInput}
+          onChange={(e) => {
+            setWordInput(e.target.value);
           }}
-        >
-          Sign Up
-        </button>
+          required
+          placeholder="New Word"
+        />
 
-        <button
-          onClick={() => {
-            Router.push("/signin");
-          }}
-        >
-          Sign In
-        </button>
+        <button onClick={handleForm}>Add Data</button>
+      </Row>
 
-        <Row>
-          <input
-            value={wordInput}
-            onChange={(e) => {
-              setWordInput(e.target.value);
-            }}
-            required
-            placeholder="New Word"
-          />
+      <h2>Public Words</h2>
 
-          <button onClick={handleForm}>Add Data</button>
-        </Row>
-
-        <h2>Public Words</h2>
-
-        <WordsColumn>
-          {publicWords &&
-            publicWords?.length > 0 &&
-            publicWords?.map((word) => {
-              return <p key={word}>{word}</p>;
-            })}
-        </WordsColumn>
-      </Column>
+      <WordsColumn>
+        {publicWords &&
+          publicWords?.length > 0 &&
+          publicWords?.map((word) => {
+            return <p key={word}>{word}</p>;
+          })}
+      </WordsColumn>
     </Container>
   );
 }

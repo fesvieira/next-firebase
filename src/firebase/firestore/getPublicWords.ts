@@ -17,6 +17,8 @@ export default async function getPublicWords() {
   try {
     result = await getDoc(docRef);
   } catch (e) {
+    console.log(e);
+
     error = e;
   }
 

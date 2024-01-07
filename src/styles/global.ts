@@ -5,24 +5,27 @@ export const Container = styled.div`
   flex-direction: column;
 
   align-items: center;
-  justify-content: center;
 
   padding: 1rem;
+  gap: 1rem;
 
   height: 100dvh;
   width: 100%;
-`;
 
-export const Column = styled.div`
-  display: flex;
-  flex-direction: column;
+  & > form {
+    display: flex;
+    flex-direction: column;
 
-  gap: 1rem;
+    gap: 1rem;
+    
+  }
 `;
 
 export const WordsColumn = styled.div`
   display: flex;
   flex-direction: column;
+
+  align-items: center;
 
   gap: 0.25rem;
 
